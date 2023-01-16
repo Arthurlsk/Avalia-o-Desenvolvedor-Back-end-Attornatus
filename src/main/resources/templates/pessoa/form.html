@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head th:insert="~{layout :: head}"></head>
+
+<body>
+    <nav th:insert="~{layout.html :: menu}"></nav>
+    <main class="container">
+        <form th:action="@{/pessoas/(form)}" method="POST" th:object="${pessoa}">
+
+            <input type="hidden" th:field="*{id}">
+            <div class="form-group">
+                <label for="txtnome">Nome:</label>
+                <input type="text" th:field="*{nome}" class="form-control" id="txtnome">
+                <p th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}" class="alert alert-danger"></p>
+            </div>
+
+
+
+            <div class="form-group">
+                <label for="txtDataNascimento">Data Nascimento</label>
+                <input type="date" th:field="*{dataNascimento}" class="form-control" id="txtDataNascimento">
+            </div>
+
+            <div class="form-group">
+                <label for="">Endereço Principal:</label>
+                <select name="" class="form-select" th:field="*{cidadeResidencia}">
+                    <option th:each="umEndereco : ${listaEnderecos}" 
+                    th:text="${umEndereco.logradouro}"
+                    th:value="${umEndereco.id}"></option>
+
+
+                    
+
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Enviar</button>
+        </form>
+
+
+
+    </main>
+
+    <footer th:insert="~{layout :: footer}"></footer>
+</body>
+
+</html>

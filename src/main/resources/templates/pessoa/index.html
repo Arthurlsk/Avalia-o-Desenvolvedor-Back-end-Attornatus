@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+
+<head th:insert="~{layout :: head}"></head>
+
+<body>
+    <nav th:insert="~{layout.html :: menu}"></nav>
+    <main class="container">
+
+        <a href="/pessoas/novo" class="btn btn-primary">Novo</a>
+        <table class="table" id="tabpessoas">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nome</th>
+                    <th>Data Nascimento</th>
+                    <th>Endereço Principal</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="umaPessoa : ${listaPessoas}">
+                    <td th:text="${umaPessoa.id}"></td>
+                    <td th:text="${umaPessoa.nome}"></td>
+                    <td th:if="${umaPessoa.dataNascimento}"
+                        th:text="${#dates.format(umaPessoa.dataNascimento, 'dd/MM/yyyy')}"></td>
+                    <td th:unless="${umaPessoa.dataNascimento}">Não informada</td>
+                    <td th:text="${umaPessoa.cidadeResidencia.logradouro}"></td>
+                    <td></td>
+                    <td>
+                        <a th:href="@{'/pessoas/alterar/' + ${umaPessoa.id}}" class="btn btn-warning">Alterar</a>
+                        <button class="btn btn-danger js-delete" th:data-id="${umaPessoa.id}">Excluir</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </main>
+
+    <div class="modal" tabindex="-1" id="modalpessoa">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Excluir Pessoa</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Confirma a exclusão da pessoa?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="btnnao" data-bs-dismiss="modal">Não</button>
+                    <button type="button" class="btn btn-primary" id="btnsim">Sim</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <script th:src="@{/webjars/jquery/3.6.1/dist/jquery.min.js}"></script>
+        <script th:src="@{/webjars/bootstrap/5.2.0/js/bootstrap.min.js}"></script>
+    </footer>
+
+    <footer th:insert="~{layout :: footer}"></footer>
+    <script th:src="@{/script.js}"></script>
+</body>
+
+</html>

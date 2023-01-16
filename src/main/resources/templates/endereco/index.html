@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+      <head th:insert="~{layout :: head}"></head>
+
+    <body>
+        <nav th:insert="~{layout.html :: menu}"></nav>
+        <main class="container">
+            <a href="/enderecos/novo" 
+            class="btn btn-primary">Novo</a>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Logradouro</th>
+                    <th>Cep</th>
+                    <th>Número</th>
+                    <th>Cidade</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="umEndereco : ${listaEnderecos}">
+                    <td th:text="${umEndereco.id}"></td>
+                    <td th:text="${umEndereco.logradouro}"></td>
+                    <td th:text="${umEndereco.cep}"></td>
+                    <td th:text="${umEndereco.numero}"></td>
+                    <td th:text="${umEndereco.cidade}"></td>
+                    <td>
+                        <a th:href="@{'/enderecos/alterar/' + ${umEndereco.id}}"
+                            class="btn btn-warning">Alterar</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+            
+                 
+        </main>
+        
+        <footer th:insert="~{layout :: footer}"></footer>
+    </body>
+</html>

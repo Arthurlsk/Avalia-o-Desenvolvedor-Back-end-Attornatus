@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+      <head th:insert="~{layout :: head}"></head>
+
+      
+    <body>
+        <nav th:insert="~{layout.html :: menu}"></nav>
+        <main class="container">
+            <form th:action="@{/enderecos/(form)}" method="POST"
+            th:object="${endereco}">
+
+            <input type="hidden" th:field="*{id}">
+            
+            <div class="form-group">
+                <label for="txtLogradouro">Logradouro:</label>
+                <input type="text" class="form-control"
+                    id="txtLogradouro" th:field="*{logradouro}">
+            </div>
+            <div class="form-group">
+                <label for="txtCep">Cep:</label>
+                <input type="number" class="form-control"
+                    id="txtCep" th:field="*{cep}">
+            </div>
+            <div class="form-group">
+                <label for="txtNumero">Número:</label>
+                <input type="number" class="form-control"
+                    id="txtNumero" th:field="*{numero}">
+            </div>
+            <div class="form-group">
+                <label for="txtCidade">Cidade:</label>
+                <input type="text" class="form-control"
+                    id="txtCidade" th:field="*{cidade}">
+            </div>
+            <button type="submit" 
+                class="btn btn-primary">Enviar</button>
+        </form>
+            
+                 
+        </main>
+        
+        <footer th:insert="~{layout :: footer}"></footer>
+    </body>
+</html>
